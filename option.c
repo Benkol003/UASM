@@ -20,6 +20,7 @@
 #include "proc.h"
 #include "equate.h"
 #include "cpumodel.h"
+#include "apiemu.h"
 
 /* prototypes */
 extern struct asym          *sym_Interface;

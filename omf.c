@@ -48,6 +48,7 @@
 #include "tokenize.h" /* needed because of StringBufferEnd usage */
 #include "input.h"
 #include "linnum.h"
+#include "apiemu.h"
 
 #define TRUNCATE 1
 #define MULTIHDR 1     /* write muliple THEADR records (Masm compatible) */

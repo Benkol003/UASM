@@ -34,12 +34,7 @@
 #include "memalloc.h"
 #include "parser.h"
 #include "mangle.h"
-
-#if MANGLERSUPP
-#if !defined(__GNUC__) && !defined(__POCC__)
-#define tolower(c) ((c >= 'A' && c <= 'Z') ? c | 0x20 : c )
-#endif
-#endif
+#include "apiemu.h"
 
 typedef int (*mangle_func)( const struct asym *, char * );
 

@@ -2,6 +2,8 @@
 #include "codegenv2.h"
 
 #include <time.h>
+#include <ctype.h>
+
 #include "globals.h"
 #include "parser.h"
 #include "segment.h"
@@ -12,6 +14,7 @@
 #include "types.h"
 #include "macro.h"
 #include "listing.h"
+#include "input.h"
 
 #define OutputCodeByte( x ) OutputByte( x )
 

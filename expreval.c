@@ -46,6 +46,7 @@
 #include "lqueue.h"
 #include "data.h"
 #include "symbols.h"
+#include "apiemu.h"
 
 #if defined(WINDOWSDDK)
 #define PRIx64       "llx"

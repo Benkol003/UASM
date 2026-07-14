@@ -32,6 +32,7 @@
 #include "listing.h"
 #include "omf.h"
 #include "macro.h"
+#include "apiemu.h"
 
 #define  res(token, function) extern ret_code function( int, struct asm_tok[] );
 #include "dirtype.h"

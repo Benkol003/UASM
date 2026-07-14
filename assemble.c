@@ -44,6 +44,7 @@
 #include "orgfixup.h"
 #include "macrolib.h"
 #include "simd.h"
+#include "apiemu.h"
 
 #if DLLIMPORT
 #include "mangle.h"
@@ -127,22 +128,6 @@ unsigned int            Parse_Pass;     /* assembly pass */
 struct qdesc            LinnumQueue;    /* queue of line_num_info items */
 
 bool write_to_file;     /* write object module */
-
-#if 0
-/* for OW, it would be good to remove the CharUpperA() emulation
- * implemented in apiemu.c. Unfortunately, OW isn't happy with
- * a local, simple version of _strupr() - it still wants to
- * import CharUpperA.
- */
-char * _strupr( char *src )
-{
-    char *dst;
-    for ( dst = src; *dst; dst++ )
-        if ( *dst >= 'a' && *dst <= 'z' )
-            *dst &= ~0x20;
-    return( src );
-}
-#endif
 
 #if COFF_SUPPORT || PE_SUPPORT
 

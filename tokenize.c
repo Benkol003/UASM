@@ -42,6 +42,7 @@
 #include "fastpass.h"
 #include "myassert.h"
 #include "pseudoFilter.h"
+#include "apiemu.h"
 
 #define CONCATID 0 /* 0=most compatible (see backsl.asm) */
 #define MASMNUMBER 1 /* 1=Masm-compatible number scanning */
@@ -72,10 +73,6 @@ extern char    *commentbuffer;
 
 /* v2.08: moved to struct line_status */
 //static uint_8 g_flags; /* directive flags for current line */
-
-#if !defined(__GNUC__) && !defined(__POCC__)
-#define tolower(c) ((c >= 'A' && c <= 'Z') ? c | 0x20 : c )
-#endif
 
 /* strings for token 0x28 - 0x2F */
 static const short stokstr1[] = {

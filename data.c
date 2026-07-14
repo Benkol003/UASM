@@ -49,6 +49,7 @@
 #include "omf.h"
 #include "atofloat.h"
 #include "myassert.h"
+#include "assemble.h"
 
 #if defined(WINDOWSDDK)
 	#if defined(_WIN32)

@@ -46,6 +46,7 @@
 #include "types.h"
 #include "fixup.h"
 #include "label.h"
+#include "apiemu.h"
 
 #include "myassert.h"
 
