@@ -51,6 +51,9 @@ $(OUTD)/msgtext.o: msgtext.c H/msgdef.h
 $(OUTD)/reswords.o: reswords.c H/instruct.h H/special.h H/directve.h H/opndcls.h H/instravx.h
 	$(CC) -D __UNIX__ -c $(inc_dirs) $(c_flags) -o $*.o reswords.c
 
+install: $(OUTD)/$(TARGET1)
+	install -m 755 $(OUTD)/$(TARGET1) /usr/local/bin/$(TARGET1)
+
 ######
 
 clean:
