@@ -280,7 +280,7 @@ static int GetSymbolIndex(const char *pName, struct macho_module *mm)
 /* ==========================================================================================
 Build a macho_section_entry structure.
 ========================================================================================== */
-struct section_64 * macho_build_section( const char *secName, const char *segName, uint32_t flags, const char *srcName )
+struct section_64 * macho_build_section( const char *secName, const char *segName, uint32_t flags, uint8_t alignment, const char *srcName )
 {
 	struct macho_section_entry *pSec = NULL;
 	pSec = malloc(sizeof(struct macho_section_entry));
@@ -289,7 +289,7 @@ struct section_64 * macho_build_section( const char *secName, const char *segNam
 	pSec->srcName = srcName;
 	strcpy(pSec->section.sectname, secName);
 	strcpy(pSec->section.segname, segName);
-	pSec->section.align = 0; // 2^0 = 1 byte alignment.
+	pSec->section.align = alignment;
 	pSec->section.flags = flags;
 
 	/* addr, size, offset, reloff, nreloc still need to be completed */
@@ -430,7 +430,7 @@ static void macho_build_structures( struct module_info *modinfo, struct macho_mo
 	{
 		if (strcmp(curr->sym.name, "_TEXT") == 0)
 		{
-			currSec = macho_build_section("__text", "__TEXT", S_REGULAR, curr->sym.name);
+			currSec = macho_build_section("__text", "__TEXT", S_REGULAR, curr->e.seginfo->alignment, curr->sym.name);
 			macho_add_section(currSec, &mm);
 			currSec->data = curr->e.seginfo->CodeBuffer;
 			currSec->size = ROUND_UP(curr->e.seginfo->bytes_written,mm.sectAlign);
@@ -448,7 +448,7 @@ static void macho_build_structures( struct module_info *modinfo, struct macho_mo
 		
 		else if (strcmp(curr->sym.name, "_DATA") == 0)
 		{
-			currSec = macho_build_section("__data", "__DATA", S_REGULAR, curr->sym.name);
+			currSec = macho_build_section("__data", "__DATA", S_REGULAR, curr->e.seginfo->alignment, curr->sym.name);
 			macho_add_section(currSec, &mm);
 			currSec->data = curr->e.seginfo->CodeBuffer;
 			currSec->size = ROUND_UP(curr->e.seginfo->bytes_written, mm.sectAlign);
@@ -465,7 +465,7 @@ static void macho_build_structures( struct module_info *modinfo, struct macho_mo
 
 		else if (strcmp(curr->sym.name, "CONST") == 0)
 		{
-			currSec = macho_build_section("_rdata", "__DATA", S_REGULAR, curr->sym.name);
+			currSec = macho_build_section("_rdata", "__DATA", S_REGULAR, curr->e.seginfo->alignment, curr->sym.name);
 			macho_add_section(currSec, &mm);
 			currSec->data = curr->e.seginfo->CodeBuffer;
 			currSec->size = ROUND_UP(curr->e.seginfo->bytes_written, mm.sectAlign);
@@ -482,7 +482,7 @@ static void macho_build_structures( struct module_info *modinfo, struct macho_mo
 
 		else if (strcmp(curr->sym.name, "_BSS") == 0)
 		{
-			currSec = macho_build_section("__bss", "__DATA", S_ZEROFILL, curr->sym.name);
+			currSec = macho_build_section("__bss", "__DATA", S_ZEROFILL, curr->e.seginfo->alignment, curr->sym.name);
 			macho_add_section(currSec, &mm);
 			currSec->data = curr->e.seginfo->CodeBuffer;
 			currSec->size = ROUND_UP(curr->e.seginfo->bytes_written, mm.sectAlign);
